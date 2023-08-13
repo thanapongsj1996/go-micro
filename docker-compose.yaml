@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+   app:
+       container_name: go-micro
+       build: .
+       ports:
+           - "8083:8083"
+       expose:
+           - "8083"
+       networks:
+           - global
+
+networks:
+  global:
+    name: global
