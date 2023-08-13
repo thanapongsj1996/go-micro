@@ -11,13 +11,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/go-micro:$SHORT_SHA']
 
-#  - name: gcr.io/cloud-builders/kubectl
-#    args:
-#      - cluster-info
-#    env:
-#      - CLOUDSDK_COMPUTE_REGION=asia-southeast1
-#      - CLOUDSDK_CONTAINER_CLUSTER=spacely-main-cluster
-#      - KUBECONFIG=/workspace/.kube/config
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - cluster-info
+    env:
+      - CLOUDSDK_COMPUTE_REGION=asia-southeast1
+      - CLOUDSDK_CONTAINER_CLUSTER=spacely-main-cluster
+      - KUBECONFIG=/workspace/.kube/config
 
   - name: gcr.io/cloud-builders/kubectl
     args: [ 'apply', '-f', 'k8s/deployment.yaml' ]
