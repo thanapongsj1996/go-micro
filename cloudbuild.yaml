@@ -1,0 +1,43 @@
+steps:
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--tag=gcr.io/$PROJECT_ID/go-micro:$SHORT_SHA'
+      - '--tag=gcr.io/$PROJECT_ID/go-micro:latest'
+      - '.'
+
+  # push container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/go-micro:$SHORT_SHA']
+
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - cluster-info
+    env:
+      - CLOUDSDK_COMPUTE_REGION=asia-southeast1-a
+      - CLOUDSDK_CONTAINER_CLUSTER=spacely-main-cluster
+      - KUBECONFIG=/workspace/.kube/config
+
+  - name: gcr.io/cloud-builders/kubectl
+    args: [ 'apply', '-f', 'k8s/deployment.yaml' ]
+
+#  - name: gcr.io/$PROJECT_ID/helm
+#    args:
+#      - upgrade
+#      - -i
+#      - go-micro
+#      - kubernetes/helm
+#      - --namespace
+#      - development
+#      - --set
+#      - image.repository=gcr.io/$PROJECT_ID/go-micro
+#      - --set
+#      - image.tag=$SHORT_SHA
+#      - -f
+#      - kubernetes/helm-values/values-go-micro-dev.yaml
+#    env:
+#      - KUBECONFIG=/workspace/.kube/config
+timeout: 1200s
+images:
+  - 'gcr.io/$PROJECT_ID/go-micro:latest'

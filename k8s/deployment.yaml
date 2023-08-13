@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: go-micro
-          image: .:latest  # Using the current directory's Dockerfile
+          image: gcr.io/spacely-ai/go-micro:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
