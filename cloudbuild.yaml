@@ -25,7 +25,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - run
-      - --filename="k8s/deployment.yaml"
+      - --filename=./k8s/deployment.yaml
       - --location=asia-southeast1
       - --cluster=spacely-main-cluster
 
