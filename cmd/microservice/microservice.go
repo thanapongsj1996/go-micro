@@ -2,6 +2,7 @@ package microservice
 
 import (
 	"github.com/labstack/echo"
+	"os"
 )
 
 // IMicroservice is interface for centralized service management
@@ -67,7 +68,7 @@ func (ms *Microservice) DELETE(path string, h ServiceHandleFunc) {
 }
 
 func (ms *Microservice) startHTTP() error {
-	return ms.echo.Start(":8083")
+	return ms.echo.Start(":" + os.Getenv("PORT"))
 }
 
 // Start all registered services

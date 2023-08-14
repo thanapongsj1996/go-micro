@@ -1,9 +1,18 @@
 package main
 
 import (
+	"fmt"
+	"github.com/subosito/gotenv"
 	"go-micro/cmd/microservice"
 	"net/http"
 )
+
+func init() {
+	err := gotenv.Load()
+	if err != nil {
+		return
+	}
+}
 
 func main() {
 	ms := microservice.NewMicroservice()
@@ -28,6 +37,7 @@ func main() {
 
 	err := ms.Start()
 	if err != nil {
+		fmt.Print(err)
 		return
 	}
 }
