@@ -27,7 +27,7 @@ steps:
       - run
       - --filename=k8s
       - --location=asia-southeast1
-      - --cluster=spacely-main-cluster
+      - --cluster=spacely-dev-cluster
 
 #  - name: gcr.io/$PROJECT_ID/helm
 #    args:
